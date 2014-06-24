@@ -14,6 +14,11 @@ PATH=/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin
 SCRIPT_NAME=/etc/init.d/<%= @service %>
 . /lib/lsb/init-functions
 
+<% unless (@force_home.empty?) %>
+# Force a HOME environment
+# Needed for a puppet master running on thin
+export HOME=<%= @force_home %>
+<% end %>
 
 run_action() {
         ACTION="$1"
