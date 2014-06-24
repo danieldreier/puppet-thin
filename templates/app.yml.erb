@@ -1,6 +1,9 @@
 # <%= @name %>.yml
 address: <%= @address %>
-port: <%= @port %> 
+port: <%= @port %>
+<% unless (@socket.empty?) %>
+socket: <%= @socket %>
+<% end %>
 tag: <%= @name %>
 chdir: <%= @chdir %>
 user: <%= @user %>

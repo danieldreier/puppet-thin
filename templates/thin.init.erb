@@ -31,7 +31,12 @@ case "$1" in
         run_action restart
         ;;
   status)
+  <% if (@socket.empty?) %>
         status_of_proc -p /var/run/thin/<%= @name %>.<%= @port %>.pid /usr/local/bin/thin <%= @service %> && exit 0 || exit $?
+  <% else %>
+        status_of_proc -p /var/run/thin/<%= @name %>.0.pid /usr/local/bin/thin <%= @service %> && exit 0 || exit $?
+  <% end %>
+
         ;;
   *)
         echo "Usage: $SCRIPT_NAME {start|stop|status|restart}" >&2

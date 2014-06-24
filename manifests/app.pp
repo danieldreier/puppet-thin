@@ -31,6 +31,7 @@ define thin::app (
   $user,
   $group,
   $rackup,
+  $socket         = '',
   $ensure         = present,
   $address        = 'localhost',
   $port           = '3000',
