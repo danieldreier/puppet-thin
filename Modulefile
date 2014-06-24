@@ -8,4 +8,3 @@ description 'Thin Module for Puppet'
 project_page 'https://github.com/camptocamp/puppet-thin'
 
 ## Add dependencies, if any:
-dependency 'camptocamp/ruby', '>= 0.0.1'

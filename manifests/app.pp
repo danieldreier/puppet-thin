@@ -31,12 +31,14 @@ define thin::app (
   $user,
   $group,
   $rackup,
-  $ensure     = present,
-  $address    = 'localhost',
-  $port       = '3000',
-  $timeout    = '30',
-  $servers    = $::physicalprocessorcount,
-  $daemonize  = true,
+  $ensure         = present,
+  $address        = 'localhost',
+  $port           = '3000',
+  $timeout        = '30',
+  $servers        = $::physicalprocessorcount,
+  $daemonize      = true,
+  $manage_service = true,
+  $service        = "thin-${name}"
 ) {
 
   file {"${thin::config_dir}/${name}.yml":
@@ -45,8 +47,21 @@ define thin::app (
     group   => 'root',
     mode    => '0644',
     content => template('thin/app.yml.erb'),
-    notify  => Service[$thin::service],
+    notify  => Service[$service],
     require => File[$thin::config_dir],
   }
+  if $manage_service == true {
+    file { "/etc/init.d/${service}":
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0755',
+      content => template('thin/thin.init.erb'),
+    }
+    service { $service:
+      ensure  => 'running',
+      enable  => true,
+      require => File["/etc/init.d/${service}"]
+    }
 
+  }
 }

@@ -6,9 +6,10 @@ class thin (
   $config_dir         = '/etc/thin.d',
   $log_dir            = '/var/log/thin',
   $pid_dir            = '/var/run/thin',
-  $package_type       = 'package',
+  $package_type       = 'gem',
   $service            = 'thin',
   $service_ensure     = 'running',
+  $manage_service     = false,
   $service_enable     = true,
   $service_hasstatus  = false,
   $service_hasrestart = true,
@@ -16,7 +17,12 @@ class thin (
 ) {
 
   case $package_type {
-    'gem'    : { include ruby::gem::thin }
+    'gem'    : {
+      package {'thin':
+        ensure   => 'installed',
+        provider => 'gem',
+      }
+    }
     'package': { include ruby::package::thin }
     default  : { fail "Unsupported package type ${package_type}" }
   }
@@ -24,7 +30,7 @@ class thin (
   # resource alias is only usable for require
   # realize Package[thin] doesn't work if thin
   # is an alias, see http://projects.puppetlabs.com/issues/4459
-  Package <| alias == 'ruby-thin' |>
+#  Package <| alias == 'ruby-thin' |>
 
   file {[$config_dir, $log_dir]:
     ensure  => 'directory',
@@ -39,24 +45,26 @@ class thin (
     mode   => '1777',
   }
 
-  file {"/etc/init.d/${service}":
-    ensure => present,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0755',
-    source => 'puppet:///modules/thin/thin.init',
-  }
+  if $manage_service == true {
+    file {"/etc/init.d/${service}":
+      ensure => present,
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0755',
+      source => 'puppet:///modules/thin/thin.init',
+    }
 
-  service {$service:
-    ensure     => $service_ensure,
-    enable     => $service_enable,
-    hasstatus  => $service_hasstatus,
-    hasrestart => $service_hasrestart,
-    pattern    => $service_pattern,
-    require    => [
-      File[$config_dir,$log_dir,$pid_dir],
-      File["/etc/init.d/${service}"], Package['ruby-thin'],
-    ],
+    service {$service:
+      ensure     => $service_ensure,
+      enable     => $service_enable,
+      hasstatus  => $service_hasstatus,
+      hasrestart => $service_hasrestart,
+      pattern    => $service_pattern,
+      require    => [
+        File[$config_dir,$log_dir,$pid_dir],
+        File["/etc/init.d/${service}"], Package['thin'],
+      ],
+    }
   }
 
 }
