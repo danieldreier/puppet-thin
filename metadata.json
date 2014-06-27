@@ -1,28 +1,31 @@
 {
-    "name"         => "danieldreier-thin",
-    "version"      => "0.1.0",
-    "author"       => "Daniel Dreier",
-    "license"      => "Licensed under (GNU GPL 3)",
-    "summary"      => "Module to for ruby thin and thin apps",
-    "source"       => "https://github.com/danieldreier/puppet-thin",
-    "project_page" => "(https://forge.puppetlabs.com/danieldreier/thin)",
-    "issues_url"   => "https://github.com/danieldreier/puppet-thin/issues"
-    "operatingsystem_support": [
-      {
-        "operatingsystem": "Debian",
-        "operatingsystemrelease": [
-          "7"
-        ]
-      },
-      {
-        "operatingsystem": "Ubuntu",
-        "operatingsystemrelease": [
-          "12.04",
-        ]
-      }
-    ],
-    "requirements": [
-      { "name": "puppet", "version_requirement": "3.x" }
-    ],
-    "dependencies": []
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "12.04"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": "3.x"
+    }
+  ],
+  "name":         "danieldreier-thin",
+  "version":      "0.1.0",
+  "author":       "Daniel Dreier",
+  "license":      "Licensed under (GNU GPL 3)",
+  "summary":      "Module to for ruby thin and thin apps",
+  "source":       "https://github.com/danieldreier/puppet-thin",
+  "project_page": "(https://forge.puppetlabs.com/danieldreier/thin)",
+  "issues_url":   "https://github.com/danieldreier/puppet-thin/issues",
+  "dependencies": []
 }
