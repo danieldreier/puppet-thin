@@ -1,10 +1,8 @@
-name 'camptocamp-thin'
-version '0.0.1'
-source 'https://github.com/camptocamp/puppet-thin'
-author 'DevOps Team / Camptocamp'
+name 'danieldreier-thin'
+version '0.1.0'
+source 'https://github.com/danieldreier/puppet-thin'
+author 'Camptocamp DevOps Team / Daniel Dreier'
 license 'GNU GPLv3'
-summary 'Camptocamp Thin Module'
+summary 'Forked version of camptocamp Thin Module'
 description 'Thin Module for Puppet'
-project_page 'https://github.com/camptocamp/puppet-thin'
-
-## Add dependencies, if any:
+project_page 'https://github.com/danieldreier/puppet-thin'
