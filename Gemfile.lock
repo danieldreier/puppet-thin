@@ -42,7 +42,8 @@ GEM
       ffi (>= 1.3.0)
     excon (0.37.0)
     extlib (0.9.16)
-    facter (1.7.6)
+    facter (2.1.0)
+      CFPropertyList (~> 2.2.6)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
     faraday_middleware (0.9.1)
@@ -131,9 +132,10 @@ GEM
       coderay (~> 1.0)
       method_source (~> 0.8)
       slop (~> 3.4)
-    puppet (3.4.3)
-      facter (~> 1.6)
+    puppet (3.6.2)
+      facter (> 1.6, < 3)
       hiera (~> 1.0)
+      json_pure
       rgen (~> 0.6.5)
     puppet-blacksmith (2.1.0)
       nokogiri
@@ -237,7 +239,7 @@ DEPENDENCIES
   beaker
   beaker-rspec
   guard-rake
-  puppet (~> 3.4.0)
+  puppet (~> 3.6.2)
   puppet-blacksmith
   puppet-lint
   puppet-syntax
