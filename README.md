@@ -46,8 +46,6 @@ To create a unix socket, which may be useful if you've got nginx in front of the
        chdir      => '/opt/demoapp',
        socket     => '/var/run/thin/demo.sock',
        force_home => '/opt/demoapp',
-       require    => [File['/opt/demoapp/demo.rb'],
-                     File['/opt/demoapp/config.ru'],
     }
 
 Note that the user and group specified must already exist. These thin::app examples will result in the creation of a service named thin-myapp or thin-demo, respectively. This is the default behavior. If you'd rather have a single init script to start and stop all your thin apps at once, use something like the following:
