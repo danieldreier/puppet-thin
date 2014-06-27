@@ -4,7 +4,12 @@ describe 'thin class' do
   context 'without parameters' do
     it 'should run with no errors' do
       pp = <<-EOS
-      class { 'thin': }
+      package { 'rubygems':
+        ensure => 'installed'
+      }
+      class { 'thin':
+        require  => Package['rubygems'],
+      }
       EOS
 
       apply_manifest(pp, :catch_failures => true)
@@ -26,7 +31,12 @@ describe 'thin class' do
   context 'running sinatra hello world app on port 3000' do
     it 'should run with no errors' do
       pp = <<-EOS
-      class { 'thin': }
+      package { 'rubygems':
+        ensure => 'installed'
+      }
+      class { 'thin':
+        require  => Package['rubygems'],
+      }
 
       package { 'sinatra':
         ensure   => 'installed',
@@ -81,7 +91,12 @@ describe 'thin class' do
   context 'running sinatra hello world app on a unix socket' do
     it 'should run with no errors' do
       pp = <<-EOS
-      class { 'thin': }
+      package { 'rubygems':
+        ensure => 'installed'
+      }
+      class { 'thin':
+        require  => Package['rubygems'],
+      }
 
       package { 'sinatra':
         ensure   => 'installed',
@@ -137,11 +152,16 @@ describe 'thin class' do
   context 'running sinatra app on unix socket as non-root user' do
     it 'should run with no errors' do
       pp = <<-EOS
-      class { 'thin': }
-
+      package { 'rubygems':
+        ensure => 'installed'
+      }
+      class { 'thin':
+        require  => Package['rubygems'],
+      }
       package { 'sinatra':
         ensure   => 'installed',
         provider => 'gem',
+        require  => Package['rubygems'],
       }
       file { '/opt/demoapp/config.ru':
         content => "require './demo' ; run Sinatra::Application",
