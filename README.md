@@ -76,6 +76,7 @@ The thin service created for this does not currently show status, so the per-ser
 
 ##Reference
 
+```
 thin::app { 'appname':
   $chdir          => # directory thin will run from
   $user           => # user thin will run as
@@ -105,6 +106,7 @@ class { 'thin':
   $manage_service     => # create a service to manage all thin apps (false by default)
   $service_enable     => # start thin service on boot
 }
+```
 
 ##Limitations
 
