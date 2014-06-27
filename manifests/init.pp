@@ -7,6 +7,7 @@ class thin (
   $log_dir            = '/var/log/thin',
   $pid_dir            = '/var/run/thin',
   $package_type       = 'gem',
+  $package_name       = 'thin',
   $service            = 'thin',
   $service_ensure     = 'running',
   $manage_service     = false,
@@ -18,19 +19,18 @@ class thin (
 
   case $package_type {
     'gem'    : {
-      package {'thin':
+      package {$package_name:
         ensure   => 'installed',
         provider => 'gem',
       }
     }
-    'package': { include ruby::package::thin }
+    'package': {
+      package { $package_name:
+        ensure   => 'installed',
+      }
+    }
     default  : { fail "Unsupported package type ${package_type}" }
   }
-
-  # resource alias is only usable for require
-  # realize Package[thin] doesn't work if thin
-  # is an alias, see http://projects.puppetlabs.com/issues/4459
-#  Package <| alias == 'ruby-thin' |>
 
   file {[$config_dir, $log_dir]:
     ensure  => 'directory',
